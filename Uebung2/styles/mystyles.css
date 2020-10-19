@@ -1,0 +1,61 @@
+  html{
+    front-family: Verdana;
+
+  }
+  header{
+      background-color: #AFAFAF; /* Hintergrundfarbe */
+      color: #FF5F00;
+      text-align: center;   /* Schrift in center haben*/
+  }
+  table{
+       width: 80%;
+       width: 400px;
+       border: black solid 1px;
+       border-collapse: collapse;
+       border-right: outset 5px;
+       border-bottom: outset 5px;
+  }
+  thead{
+        background-color: #768900;
+        color: white;  /* Farbe des Schriftes*/
+  }
+
+  th{
+        text-align:left; /* Texte im Tabele Links untereinander anordnen*/
+  }
+  th, td{
+        border: black solid 1px;
+        border-collapse: collapse;
+        padding: spx;
+  }
+  nav{
+        margin: 50px;
+  }
+
+  nav a:link{
+        border: gray solid 2px;
+        background-color: #008301;
+        border-radius: 5px;
+        color: white;
+        margin: 3px;
+        text-decoration: none;
+        font-width: "bold";
+        font-size: large;
+  }
+  nav a:hover {
+        background-color: #AFAFAF;
+        color: #FF5F00;
+  }
+
+  footer{
+        background-color:#FF5F00;
+        color: black;
+        font-size: 80%;
+        text-align: center;
+        padding: 10px;
+
+  }
+
+
+
+
