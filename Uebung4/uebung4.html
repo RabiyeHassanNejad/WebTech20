@@ -39,7 +39,8 @@ footer{
     font-size: 80%;
     padding: 10px;
 }
-    </style>
+     </style>
+
 </head>
 <body>
 <header class="jumbotron">
@@ -48,6 +49,17 @@ footer{
         <img src= "../image/fiw.jpg" alt = "FIW-Logo"   style="width:53px; height=48px; float:left">
     </div>
 </header>
+<!--<form>
+    <div class="form-group">
+
+    <input id="input1" type="text" class="form-control" placeholder="Vorname" />
+    <input id="input2" type="text" class="form-control" placeholder="Nachname" />
+    <input id="input3" type="text" class="form-control" placeholder="E-Mail-Adresse" />
+    <input id="input4" type="text" class="form-control" placeholder="IP-Adresse" />
+    <input id="input5" type="text" class="form-control" placeholder=" " />
+    </div>
+</form>-->
+
 <nav>
     <ul class="nav">
         <li class="nav-item">
@@ -75,10 +87,11 @@ footer{
         <table class="htw-table table table-striped">
             <thead>
             <tr>
-                <th>Vorname</th>
-                <th>Nachname</th>
-                <th>E-Mail-Adresse</th>
-                <th>IP-Adresse</th>
+                <th scope="col"> Vorname</th>
+                <th scope="col">Nachname</th>
+                <th scope="col">E-Mail-Adresse</th>
+                <th scope="col">IP-Adresse</th>
+                <th scope="col"> </th>
             </tr>
             </thead>
             <tbody>
@@ -382,6 +395,13 @@ footer{
                 <td>cwilliamsl@360.cn</td>
                 <td>154.87.204.51</td>
             </tr>
+            <tr id="addRow">
+                <td><input id="i1" type="text" class="form-control" placeholder="Vorname"></td>
+                <td><input id="i2" type="text" class="form-control" placeholder="Nachname"></td>
+                <td><input id="i3" type="text" class="form-control" placeholder="E-Mail Adresse"></td>
+                <td><input id="i4" type="text" class="form-control" placeholder="IP-Adresse"></td>
+                <td><button id="i5" type="button" class="form-control" onclick="checkAndAdd()">Add</button></td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -389,24 +409,70 @@ footer{
         <h3>rechts</h3>
     </div>
 </main>
-<footer>Rabiye Hassan Nejad -- Aufgabe 3</footer>
+<script>
+    function checkAndAdd() {
+        let tbody = document.getElementsByTagName('tbody')[0];
+        let i1 = document.getElementById('i1');
+        let i2 = document.getElementById('i2');
+        let i3 = document.getElementById('i3');
+        let i4 = document.getElementById('i4');
+
+        let value_i1 = i1.value;
+        let value_i2 = i2.value;
+        let value_i3 = i3.value;
+        let value_i4 = i4.value;
+
+        var leereInput = false;
+        i1.classList.remove('is-invalid');
+        i2.classList.remove('is-invalid');
+        i3.classList.remove('is-invalid');
+        i4.classList.remove('is-invalid');
+
+        if(value_i1 === "") {
+            i1.classList.add('is-invalid');
+            leereInput = true;
+        }
+        if (value_i2 === "") {
+            i2.classList.add('is-invalid');
+            leereInput = true;
+        }
+        if (value_i3 === "") {
+            i3.classList.add('is-invalid');
+            leereInput = true;
+        }
+        if (value_i4 === "") {
+            i4.classList.add('is-invalid');
+            leereInput = true;
+        }
+        if (leereInput === false)
+        {
+            let newZeile = document.createElement('tr');
+            let new_td1 = document.createElement('td');
+            let new_td2 = document.createElement('td');
+            let new_td3 = document.createElement('td');
+            let new_td4 = document.createElement('td');
+            let new_td5 = document.createElement('td');
+
+            new_td1.innerHTML = value_i1;
+            new_td2.innerHTML = value_i2;
+            new_td3.innerHTML = value_i3;
+            new_td4.innerHTML = value_i4;
+
+            newZeile.appendChild(new_td1);
+            newZeile.appendChild(new_td2);
+            newZeile.appendChild(new_td3);
+            newZeile.appendChild(new_td4);
+            newZeile.appendChild(new_td5);
+
+            tbody.insertBefore(newZeile, document.getElementById('addZeile'));
+
+            i1.value = "";
+            i2.value = "";
+            i3.value = "";
+            i4.value = "";
+        }
+    }
+</script>
+<footer>Rabiye Hassan Nejad -- Aufgabe 4</footer>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
