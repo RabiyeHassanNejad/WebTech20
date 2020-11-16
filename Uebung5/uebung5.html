@@ -47,7 +47,7 @@
                     createTable();
 				}};
 
-	}
+
 
 
             //erste Parameter:GET oder POST:worüber man die Anfrage senden will
@@ -67,6 +67,8 @@
 	// die Funktion, die die Tablle erzeugt
 	function createTable()
 	{
+		let staedte= staedte_obj.staedte;
+
 		let input = document.getElementById('filter').value;		// eingegbene Daten (Formular)
 
 		let tableDiv = document.getElementById('table');
@@ -121,30 +123,37 @@
 		// Filtern: die Eingabe mit dem jeweiligen Gründungsjahr bzw. der jeweiligen Stadt
 		// vergleichen
 		// wenn match, dann entsprechende Zeile einfügen
-		console.log(staedte_obj);
-		let staedte= staedte_obj.staedte;
+
+
 		for(let i=0; i<staedte.length; i++)
 		{
 			if(staedte[i].stadt.substring(0, input.length).toLowerCase() === input.toLowerCase() ||
 				staedte[i].jahr.toString().substring(0, input.length) === input)
 			{
 			_tr = tr.cloneNode(false);
+
 			_td= td.cloneNode(false);
-			_td-innerHTML= (i+1);
+			_text= document.createTextNode(i+1);
+			_td=appendChild(_text);
 			_tr.appendChild(_td);
 
 			_td= td.cloneNode(false);
-			_td.innerHTML= staedte[i].jahr;
+			_text = document.createTextNode(staedte[i].jahr);
+            _td.appendChild(_text);
             _tr.appendChild(_td);
 
+
 			_td= td.cloneNode(false);
-			_td.innerHTML= staedte[i].stadt;
-			_tr.appendChild(_td);
+			_text = document.createTextNode(staedte[i].stadt);
+            _td.appendChild(_text);
+            _tr.appendChild(_td);
+
 
 			_td= td.cloneNode(false);
 			let a= document.createElement('a');
 			a.href= staedte[i].link;
 			a.innerHTML= "Link";
+			a.setAttribute('target', '_blank');
 			a.classList.add("btn" , "btn-sm" , "btn-success");
 			_td.appendChild(a);
 			_tr.appendChild(_td);
@@ -154,6 +163,7 @@
 			img.setAtrribute('alt' , staedte[i].stadt);
 			img.src= staedte[i].bild;
 			img.innerHTML= '60px';
+			img.addEventListener('click', cloneImg.bind(this));
 			_td.appendChild(img);
 			_td.appendChild(_td);
 			tbody.appendChild(_tr);
@@ -162,7 +172,7 @@
 		}
 
 
-
+		table.appendChild(thead);
 		table.appendChild(tbody);
 		tableDiv.appendChild(table);
 	}
