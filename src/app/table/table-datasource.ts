@@ -6,14 +6,10 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 import { Data } from '../shared/data';
 import { DataService } from '../shared/data.service';
 // TODO: Replace this with your own data model type
-/* export interface TableItem {
-  id: number;
-  forename: string;
-  surname: string;
-  email: string;
-}
+
+
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: TableItem[] = [
+const EXAMPLE_DATA: Data[] = [
   {
     id: 1,
     forename: 'Catherine',
@@ -314,7 +310,7 @@ const EXAMPLE_DATA: TableItem[] = [
     surname: 'Williams',
     email: 'ewilliamsi@deliciousdays.com'
   }
-]; */
+];
 /**
  * Data source for the Table view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
