@@ -21,7 +21,7 @@ import { MatListModule } from '@angular/material/list';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
     MatSliderModule,
     LayoutModule,
     MatToolbarModule,
