@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Staedte</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+</head>
+<body onload='loadJSON(); document.getElementById("filter").focus();'>
+<div class="container">
+	<h1>Städte</h1>
+
+	<form class="form-horizontal" role="form">
+		<div class="form-group row">
+			<label for="filter" class="col-form-label col-2">Filter:</label>
+			<div class="col-10">
+				<input class="form-control" id="filter" type="text" placeholder="Stadt oder Gruendungsjahr" oninput="createTable()" >
+			</div>
+		</div>
+	</form>
+
+	<div id="table" >
+	</div>
+
+	<div id="unten"></div>
+
+</div>
+<script>
+	var staedte_obj; // Variable, in der Sie die Referenz auf das JSON (Objekt) speichern
+	// hier die Funktion, die mithilfe von XMLHttpRequest (oder fetch())
+    // das JSON vom Server lädt und in die staedte_obj-variable speichert
+	// diese Funktion sollte auch createTable() aufrufen
+	function loadJSON()
+	{
+	        <--!neue Variable deklarieren, das ist eine Instanz von XMLHttpRequest()-->
+			let xhttp = new XMLHttpRequest();
+			//aufruf die Eigenschaft onreadystatechange und weise eine anonyme Funktion zu
+			xhttp.onreadystatechange = function(){
+					// 4 readyState heisst die Anfrage wurde verschickt und es kam eine Antwort
+					// http status 200 heisst die Antwort ist erfolgreich
+				if(this.readyState=== 4 && this.status=== 200)
+				{
+
+				//this.responseText ist Text,damit man aus dem Text Daten Objekt herausbekommt, ist Jason Klasse von javascript notwendig
+					staedte_obj = JSON.parse(this.responseText);
+                    console.log(staedte_obj);
+                    createTable();
+				}};
+
+
+
+
+            //erste Parameter:GET oder POST:worüber man die Anfrage senden will
+            //zweite Parameter:URL angeben(welche Datei soll geladen werden)
+			xhttp.open("GET", "http://localhost/Webtech20/Uebung5/staedte.json", true);
+			//sende die Anfrage ab
+			xhhtp.sende();
+
+
+            // in Methode onreadystatechange bestimmt man was soll passieren
+            //nachdem die Anfrage geschickt wurde und zurückgekommen ist
+
+	}
+
+
+
+	// die Funktion, die die Tablle erzeugt
+	function createTable()
+	{
+		let staedte= staedte_obj.staedte;
+
+		let input = document.getElementById('filter').value;		// eingegbene Daten (Formular)
+
+		let tableDiv = document.getElementById('table');
+		if(tableDiv.firstChild) tableDiv.removeChild(tableDiv.firstChild);
+
+		let table = document.createElement('TABLE');
+		table.setAttribute('class', 'table table-striped');		// Bootstrap
+		let thead = document.createElement('THEAD');
+		let tr = document.createElement('TR');
+		let th = document.createElement('TH');
+		let tbody = document.createElement('TBODY');
+		let td = document.createElement('TD');
+
+		let _tr = tr.cloneNode(false);							// Variable für Clone von tr
+		let _td = td.cloneNode(false);							// Variable für Clone von td
+
+		// ab hier Spaltenüberschriften - alles schon fertig - wird angezeigt
+
+		let _th = th.cloneNode(false);
+		let _text = document.createTextNode('Nr');
+		_th.appendChild(_text);
+		tr.appendChild(_th);
+
+		_th = th.cloneNode(false);
+		_text = document.createTextNode('Jahr');
+		_th.appendChild(_text);
+		tr.appendChild(_th);
+
+		_th = th.cloneNode(false);
+		_text = document.createTextNode('Stadt');
+		_th.appendChild(_text);
+		tr.appendChild(_th);
+
+		_th = th.cloneNode(false);
+		_text = document.createTextNode('Link');
+		_th.appendChild(_text);
+		tr.appendChild(_th);
+
+		_th = th.cloneNode(false);
+		_text = document.createTextNode('Bild');
+		_th.appendChild(_text);
+		tr.appendChild(_th);
+
+
+		thead.appendChild(tr);			// Spaltenueberschriften an thead haengen
+		table.appendChild(thead);		// thead an die Tabelle haengen
+
+		<--! hier muessen jetzt die einzelnen Zeilen in die Tabelle eingelesen werden-->
+		// das JSON-Array muss ausgelesen werden (for(let i=0; i<staedte.length; i++))
+		// Achtung: staedte_obj referenziert das Objekt --> das Array steckt da drin
+		// Tipp: zunächst einfach alle anzeigen lassen und erst dann das Filtern einbauen
+		// Filtern: die Eingabe mit dem jeweiligen Gründungsjahr bzw. der jeweiligen Stadt
+		// vergleichen
+		// wenn match, dann entsprechende Zeile einfügen
+
+
+		for(let i=0; i<staedte.length; i++)
+		{
+			if(staedte[i].stadt.substring(0, input.length).toLowerCase() === input.toLowerCase() ||
+				staedte[i].jahr.toString().substring(0, input.length) === input)
+			{
+			_tr = tr.cloneNode(false);
+
+			_td= td.cloneNode(false);
+			_text= document.createTextNode(i+1);
+			_td=appendChild(_text);
+			_tr.appendChild(_td);
+
+			_td= td.cloneNode(false);
+			_text = document.createTextNode(staedte[i].jahr);
+            _td.appendChild(_text);
+            _tr.appendChild(_td);
+
+
+			_td= td.cloneNode(false);
+			_text = document.createTextNode(staedte[i].stadt);
+            _td.appendChild(_text);
+            _tr.appendChild(_td);
+
+
+			_td= td.cloneNode(false);
+			let a= document.createElement('a');
+			a.href= staedte[i].link;
+			a.innerHTML= "Link";
+			a.setAttribute('target', '_blank');
+			a.classList.add("btn" , "btn-sm" , "btn-success");
+			_td.appendChild(a);
+			_tr.appendChild(_td);
+
+			_td= td.cloneNode(false);
+			let img= document.createElement('img');
+			img.setAtrribute('alt' , staedte[i].stadt);
+			img.src= staedte[i].bild;
+			img.innerHTML= '60px';
+			img.addEventListener('click', cloneImg.bind(this));
+			_td.appendChild(img);
+			_td.appendChild(_td);
+			tbody.appendChild(_tr);
+			}
+
+		}
+
+
+		table.appendChild(thead);
+		table.appendChild(tbody);
+		tableDiv.appendChild(table);
+	}
+
+	// hier noch eine Funktion, die das Bild, auf das geklickt wurde, in
+	// das Div "unten" clont
+
+
+
+
+</script>
+</body>
+</html>
